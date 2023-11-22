@@ -5,7 +5,7 @@ from main import app  # Assuming app.py is your Flask application
 # This event will be set when we need to stop the Flask server
 stop_event = Event()
 
-app_title = "OwnAI"
+app_title = "ChatGPFree"
 host = "http://127.0.0.1"
 port = 9898
 
