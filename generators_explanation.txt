@@ -1,0 +1,2 @@
+Generators in Python are like a lazy chef in a restaurant. Imagine you order a multi-course meal. Instead of cooking everything at once and bringing it to your table, the chef prepares and serves one dish at a time. After you finish each dish, the chef starts preparing the next one. This way, the kitchen doesn't get overwhelmed with work, and you get each dish fresh and when you need it. In Python, generators work similarly. They handle data one piece at a time instead of preparing everything upfront, which saves memory and can make programs more efficient.
+

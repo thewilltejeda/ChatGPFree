@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OwnAI</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://unpkg.com/htmx.org@1.9.8"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/sse.js"></script>
+
+</head>
+
+<body class="flex w-full bg-gray-700">
+
+    <main id="mainDiv" class="flex flex-col w-full pb-16 justify-start items-center">
+
+        <ul 
+            id="chat_responses"
+            hx-ext="sse"
+            sse-connect="/stream"
+            sse-swap="message"
+            hx-swap="beforeend"
+            class="rounded-2xl w-full md:w-3/4 lg:w-1/2 p-4 mb-16"
+        >
+        </ul>
+        
+        <form id="chat" class="flex max-h-16 fixed bottom-6 justify-center items-center w-full " hx-post='/chat_submit'
+            hx-target="#chat_responses" hx-swap="beforeend" 
+            hx-trigger="click from:#submitButton" 
+            hx-on="htmx:beforeRequest: htmx.find('#chat_responses').innerHTML += `<li class='text-white p-4 m-2 shadow-md rounded bg-gray-600 text-sm'><strong>{{ username }}</strong> : ${htmx.find('#user_input').value}</li>`; 
+            
+            htmx.find('#user_input').value=''; 
+            htmx.find('#user_input').placeholder='Send a message'; 
+            
+            window.scrollTo(0, htmx.find('#chat_responses').scrollHeight+100); 
+            htmx.find('#user_input').focus();
+
+            htmx:afterRequest: window.scrollTo(0, htmx.find('#chat_responses').scrollHeight+100); 
+            ">
+            <textarea rows="2" id="user_input" name="user_input" required
+                class="rounded w-8/12 md:w-1/4 bg-gray-800 text-white ml-4  p-2 h-16 shadow-xl resize-none text-xs"
+                id="prompt" placeholder="Send a message" autofocus autocomplete="off"></textarea>
+
+            <div class="flex flex-col gap-2">
+                <button id="submitButton" type="button"
+                    class="w-16 h-16 p-2 rounded bg-gray-800 hover:bg-gray-900 text-white text-center m-4 shadow-xl"><i
+                        class="fa fa-paper-plane" aria-hidden="true"></i>
+                </button>
+            </div>
+        </form>
+    </main>
+    <script>
+        htmx.find('#user_input').addEventListener('keydown', function(event) {
+            // Check if Enter key is pressed without holding the Shift key
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();  // Prevent newline insertion
+                htmx.trigger("#submitButton", "click");
+            }
+        });
+    </script>
+</body>
+
+</html>

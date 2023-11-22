@@ -1,0 +1,7 @@
+python-decouple
+flask
+langchain
+ctransformers[cuda]
+pywebview
+
+

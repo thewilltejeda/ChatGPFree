@@ -1,0 +1,4 @@
+<li id="{{ current_response_id.replace('-', '') }}"
+    class="text-white p-4 m-2 shadow-md rounded bg-gray-800 text-sm" {% if hx_swap %}hx-swap-oob="true"{% endif %}>
+    <strong>{{ ai_name }}</strong> : {{ ai_response }}
+</li>
