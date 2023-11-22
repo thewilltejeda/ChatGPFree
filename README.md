@@ -1,10 +1,10 @@
-#ChatGPFree
+# ChatGPFree
 
 
-Follow Along For This Video: 
+#### Follow Along For This Video: 
 
 
-Resources: 
+## Resources: 
 
 
 * HTMX Server Sent Events : https://htmx.org/extensions/server-sent-events/

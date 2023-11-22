@@ -19,23 +19,22 @@ if __name__ == '__main__':
     t.start()
 
     width = 400
-    height= 400
+    height= 400 # 710 is a good height for a tall chat window
 
     webview.create_window(
         app_title,
         f"{host}:{port}",
         text_select=True,
         confirm_close=True,
-        # resizable=False,
-        #height=710,
         x=1920-width,
         y=0,
         height=height,
         width=width,
         min_size=(400, 400),
-        frameless=True,
-        #easy_drag=True,
-        on_top=True
+        # resizable=False,
+        # frameless=True,
+        # easy_drag=True,
+        # on_top=True
         )
     
     webview.start()
